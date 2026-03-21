@@ -1178,6 +1178,15 @@ createpointer(struct wlr_pointer *pointer)
 	if (wlr_input_device_is_libinput(&pointer->base)
 			&& (device = wlr_libinput_get_device_handle(&pointer->base))) {
 
+		double width = 0.0;
+		double height = 0.0;
+		bool is_touchpad = 0;
+
+		if (libinput_device_get_size(device, &width, &height) == 0) {
+			if (width != 0.0 || height != 0.0)
+				is_touchpad = 1;
+		}
+
 		if (libinput_device_config_tap_get_finger_count(device)) {
 			libinput_device_config_tap_set_enabled(device, tap_to_click);
 			libinput_device_config_tap_set_drag_enabled(device, tap_and_drag);
@@ -1186,18 +1195,9 @@ createpointer(struct wlr_pointer *pointer)
 		}
 
 		if (libinput_device_config_scroll_has_natural_scroll(device)) {
-			if (libinput_device_has_capability(device, LIBINPUT_DEVICE_CAP_POINTER)) {
-				double width, height;
-				if (libinput_device_get_size(device, &width, &height) == 0) {
-					if (width == 0.0 && height == 0.0) {
-						// Mouse
-						libinput_device_config_scroll_set_natural_scroll_enabled(device, 0);
-					} else {
-						// Touchpad
-						libinput_device_config_scroll_set_natural_scroll_enabled(device, 1);
-					}
-				}
-			}
+			libinput_device_config_scroll_set_natural_scroll_enabled(
+					device,
+					is_touchpad ? natural_scrolling_touchpad : natural_scrolling);
 		}   
 
 		if (libinput_device_config_dwt_is_available(device))
@@ -1219,8 +1219,11 @@ createpointer(struct wlr_pointer *pointer)
 			libinput_device_config_send_events_set_mode(device, send_events_mode);
 
 		if (libinput_device_config_accel_is_available(device)) {
-			libinput_device_config_accel_set_profile(device, accel_profile);
-			libinput_device_config_accel_set_speed(device, accel_speed);
+			libinput_device_config_accel_set_profile(device,
+					is_touchpad ? accel_profile_touchpad : accel_profile);
+
+			libinput_device_config_accel_set_speed(device,
+					is_touchpad ? accel_speed_touchpad : accel_speed);
 		}
 	}
 
