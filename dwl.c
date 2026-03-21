@@ -1185,8 +1185,20 @@ createpointer(struct wlr_pointer *pointer)
 			libinput_device_config_tap_set_button_map(device, button_map);
 		}
 
-		if (libinput_device_config_scroll_has_natural_scroll(device))
-			libinput_device_config_scroll_set_natural_scroll_enabled(device, natural_scrolling);
+		if (libinput_device_config_scroll_has_natural_scroll(device)) {
+			if (libinput_device_has_capability(device, LIBINPUT_DEVICE_CAP_POINTER)) {
+				double width, height;
+				if (libinput_device_get_size(device, &width, &height) == 0) {
+					if (width == 0.0 && height == 0.0) {
+						// Mouse
+						libinput_device_config_scroll_set_natural_scroll_enabled(device, 0);
+					} else {
+						// Touchpad
+						libinput_device_config_scroll_set_natural_scroll_enabled(device, 1);
+					}
+				}
+			}
+		}   
 
 		if (libinput_device_config_dwt_is_available(device))
 			libinput_device_config_dwt_set_enabled(device, disable_while_typing);
