@@ -124,6 +124,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 /* commands */
 static const char *termcmd[] = { "foot", NULL };
 static const char *menucmd[] = { "wmenu-run", NULL };
+static const char *screenshotcmd[] = { "flameshot", "gui", NULL };
 static const char *incvolcmd[]  = { "vol.sh", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%+", NULL };
 static const char *decvolcmd[]  = { "vol.sh", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-", NULL };
 static const char *mutevolcmd[] = { "vol.sh", "set-mute", "@DEFAULT_AUDIO_SINK@", "toggle", NULL };
@@ -156,6 +157,7 @@ static const Key keys[] = {
 	{ MODKEY,                    XKB_KEY_period,      focusmon,         {.i = WLR_DIRECTION_RIGHT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_less,        tagmon,           {.i = WLR_DIRECTION_LEFT} },
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_greater,     tagmon,           {.i = WLR_DIRECTION_RIGHT} },
+	{ 0,                         XKB_KEY_Print,       spawn,            {.v = screenshotcmd} },
 	{ 0,                XKB_KEY_XF86AudioRaiseVolume, spawn,            {.v = incvolcmd} },
 	{ 0,                XKB_KEY_XF86AudioLowerVolume, spawn,            {.v = decvolcmd} },
 	{ 0,                    XKB_KEY_XF86AudioMute,    spawn,            {.v = mutevolcmd} },
