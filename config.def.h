@@ -10,15 +10,15 @@ static const int smartgaps                 = 1;  /* 1 means no outer gap when th
 static int gaps                            = 1;  /* 1 means gaps between windows are added */
 static const unsigned int gappx            = 6; /* gap pixel between windows */
 static const unsigned int borderpx         = 1;  /* border pixel of windows */
-static const float rootcolor[]             = COLOR(0x222222ff);
-static const float bordercolor[]           = COLOR(0x444444ff);
-static const float focuscolor[]            = COLOR(0x005577ff);
-static const float urgentcolor[]           = COLOR(0xff0000ff);
+static const float rootcolor[]             = COLOR(0x24273aff); // base (background)
+static const float bordercolor[]           = COLOR(0x494d64ff); // surface0
+static const float focuscolor[]            = COLOR(0x8aadf4ff); // blue
+static const float urgentcolor[]           = COLOR(0xed8796ff); // red
 /* This conforms to the xdg-protocol. Set the alpha to zero to restore the old behavior */
 static const float fullscreen_bg[]         = {0.0f, 0.0f, 0.0f, 1.0f}; /* You can also use glsl colors */
 
 /* tagging - TAGCOUNT must be no greater than 31 */
-#define TAGCOUNT (9)
+#define TAGCOUNT (6)
 
 /* logging */
 static int log_level = WLR_ERROR;
@@ -167,9 +167,6 @@ static const Key keys[] = {
 	TAGKEYS(          XKB_KEY_apostrophe, XKB_KEY_4,                    3),
 	TAGKEYS(          XKB_KEY_parenleft, XKB_KEY_5,                     4),
 	TAGKEYS(          XKB_KEY_minus, XKB_KEY_6,                         5),
-	TAGKEYS(          XKB_KEY_egrave, XKB_KEY_7,                        6),
-	TAGKEYS(          XKB_KEY_underscore, XKB_KEY_8,                    7),
-	TAGKEYS(          XKB_KEY_ccedilla, XKB_KEY_9,                      8),
 	{ MODKEY|WLR_MODIFIER_SHIFT, XKB_KEY_q,           quit,             {0} },
 
 	/* Ctrl-Alt-Backspace and Ctrl-Alt-Fx used to be handled by X server */
