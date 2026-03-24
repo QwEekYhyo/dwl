@@ -123,7 +123,7 @@ static const enum libinput_config_tap_button_map button_map = LIBINPUT_CONFIG_TA
 
 /* commands */
 static const char *termcmd[] = { "foot", NULL };
-static const char *menucmd[] = { "wmenu-run", NULL };
+static const char *menucmd[] = { "wmenu-run", "-N", "24273a", "-n", "cad3f5", "-M", "8aadf4", "-m", "24273a", "-S", "363a4f", "-s", "cad3f5", "-f", "DejaVu-Sans-Mono 14", NULL };
 static const char *screenshotcmd[] = { "flameshot", "gui", NULL };
 static const char *incvolcmd[]  = { "vol.sh", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%+", NULL };
 static const char *decvolcmd[]  = { "vol.sh", "set-volume", "@DEFAULT_AUDIO_SINK@", "5%-", NULL };
